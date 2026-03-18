@@ -10,6 +10,8 @@ from expenses import (
     get_most_expensive
 )
 
+import expenses as e
+
 
 def print_menu():
     print("\n==========================")
@@ -29,13 +31,10 @@ def get_valid_amount():
     while True:
         try:
             amount = float(input("Enter amount: "))
-
             if amount <= 0:
                 print("Amount must be greater than zero.")
                 continue
-
             return amount
-
         except ValueError:
             print("Invalid amount. Please enter a number.")
 
@@ -53,12 +52,10 @@ def get_non_empty_input(prompt):
 def main():
 
     filename = "data.csv"
-
     # Load expenses on startup
     expenses = load_expenses(filename)
 
     while True:
-
         print_menu()
         choice = input("Enter choice: ").strip()
         if choice == "1":

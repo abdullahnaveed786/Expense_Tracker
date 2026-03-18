@@ -4,11 +4,9 @@ from datetime import datetime
 
 def load_expenses(filename):
     expenses = []
-
     try:
         with open(filename, "r") as file:
             reader = csv.DictReader(file)
-
             for row in reader:
                 expense = {
                     "name": row["name"],
@@ -16,7 +14,7 @@ def load_expenses(filename):
                     "category": row["category"],
                     "date": row["date"]
                 }
-
+            
                 expenses.append(expense)
 
     except FileNotFoundError:
@@ -26,31 +24,39 @@ def load_expenses(filename):
     return expenses
 
 
-def save_expenses(expenses, filename):
+def save_expenses(ex):
 
-    with open(filename, "w", newline="") as file:
 
-        fieldnames = ["name", "amount", "category", "date"]
 
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
 
-        writer.writeheader()
 
-        for expense in expenses:
-            writer.writerow(expense)
+
+
+
+
+
+
+
+
+
+
+# def save_expenses(expenses, filename):
+#     with open(filename, "w", newline="") as file:
+#         fieldnames = ["name", "amount", "category", "date"]
+#         writer = csv.DictWriter(file, fieldnames=fieldnames)
+#         writer.writeheader()
+#         for expense in expenses:
+#             writer.writerow(expense)
 
 
 def add_expense(expenses, name, amount, category):
-
-    date = datetime.now().strftime("%Y-%m")
-
+    date = datetime.now().strftime("%Y-%m-%d %H:%M")
     expense = {
         "name": name.lower(),
         "amount": amount,
         "category": category.lower(),
         "date": date
     }
-
     expenses.append(expense)
 
 
@@ -76,7 +82,6 @@ def display_all(expenses):
 def get_category_total(expenses, category):
 
     total = 0
-
     for expense in expenses:
         if expense["category"].lower() == category.lower():
             total += expense["amount"]
@@ -96,7 +101,6 @@ def get_monthly_summary(expenses):
             summary[month] = 0
 
         summary[month] += expense["amount"]
-
     return summary
 
 def delete_expense(expenses, name):
